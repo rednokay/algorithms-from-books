@@ -1,4 +1,3 @@
-#include <cstddef>
 #include <iostream>
 #include <array>
 #include <optional>
@@ -23,42 +22,36 @@ std::optional<int> binary_search(const std::array<int, N>& arr, int key) {
         return std::nullopt;
 
     auto lower = 0;
-    auto upper = arr.size() - 1;
+    auto upper = arr.size();    // exceeding last index by 1
 
-    if (key > arr.at(upper))
+    if (key > arr.at(upper - 1))
         return std::nullopt;
     if (key < arr.at(lower))
         return std::nullopt;
 
-    std::optional<int> index = std::nullopt;
-
-    while (lower != upper) {
-        const int rel_mid = int((upper - lower)/2);
-        const int mid = lower + rel_mid;
+    while (lower < upper) {
+        const auto rel_mid = int((upper - lower)/2);
+        const auto mid = lower + rel_mid;
 
         std::cout << '(' << lower << ", " << mid << ", "<< upper << "); " << arr.at(mid) << "\n";
 
         if (key == arr.at(mid)) {
-            index = mid;
-            break;
+            return mid;
         }
 
-        if (rel_mid == 0) {
-            index = (upper == mid + 1 && key == arr.at(upper)) ? upper : index;
-            break;
-        }
-
-        if (key < arr.at(mid))
+        if (key < arr.at(mid)) {
             upper = mid;
-        if (key > arr.at(mid))
-            lower = mid;
+        } else if (key > arr.at(mid)){
+            lower = mid + 1;
+        }
     }
 
-    return index;
+    return std::nullopt;
 }
 
 int main() {
-    constexpr std::array<int, 7> list = {-1, 2, 3, 7, 8, 9, 15};
+    // constexpr std::array<int, 7> list = {-1, 2, 3, 7, 8, 9, 15};
+    std::array<int, 5> list = {1, 3, 5, 7, 9};
     std::cout << "List in which to find in: " << list << "\n";
 
     int key;
