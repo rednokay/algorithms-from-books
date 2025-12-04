@@ -13,11 +13,11 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 add_compile_options(-Wall -Wextra -Wpedantic -Werror)
 
 # -- Executable --
-add_executable(selection_sort
+add_executable(sort
     main.cc
 )
 
-target_include_directories(selection_sort PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_include_directories(sort PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 # find_package(Catch2 3 REQUIRED)
 add_executable(run_tests
