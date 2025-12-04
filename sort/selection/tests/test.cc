@@ -19,9 +19,29 @@ TEST_CASE("The swap() function swaps the values of two std::array entries while 
         std::array<int, 5> arr = {5, -1, 12, 15, 7};
 
         swap(arr, 1, 3);
+        std::array<int, 5> res = {5, 15, 12, -1, 7};
 
-        REQUIRE(arr.at(0) == 5);
-        REQUIRE(arr.at(2) == 12);
-        REQUIRE(arr.at(4) == 7);
+        REQUIRE(arr == res);
+    }
+}
+
+TEST_CASE("The selection_sort() function sorts an std::array in increasing order") {
+
+    SECTION("An unsorted array should be sorted") {
+        std::array<int, 4> arr = {5, -1, 12, 7};
+        std::array<int, 4> res = {-1, 5, 7, 12};
+
+        selection_sort(arr);
+
+        REQUIRE(arr == res);
+    }
+
+    SECTION("A sorted array sould remain sorted") {
+        std::array<int, 4> arr = {-1, 5, 7, 12};
+        std::array<int, 4> res = {-1, 5, 7, 12};
+
+        selection_sort(arr);
+
+        REQUIRE(arr == res);
     }
 }
