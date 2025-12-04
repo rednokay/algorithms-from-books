@@ -2,6 +2,7 @@
 #define SORT_H
 
 #include <array>
+#include <cstddef>
 #include <iostream>
 
 template<typename T, std::size_t N>
@@ -75,11 +76,29 @@ std::array<T, N_one + N_two> merge(std::array<T, N_one>& one, std::array<T, N_tw
 }
 
 template<typename T, std::size_t N>
-void merge_sort(std::array<T, N>& arr) {
-    (void)arr;
+std::array<T, N> merge_sort(const std::array<T, N>& arr) {
+    if (N <= 1) {
+        return arr;
+    }
+
+    std::array<T, N/2> lower;
+    std::array<T, N - N/2> upper;
+
+    std::copy(arr.begin(), arr.begin() + N/2, lower.begin());
+    std::copy(arr.begin() + N/2, arr.end(), upper.begin());
+
+    // Recursion stacks until first hit of N == 1
+    // Once N == 1 the merge() function will break
+    // each recursion step
+    lower = merge_sort(lower);
+    upper = merge_sort(upper);
+
+    // This is only called when moving inside-out
+    // after N == 1 returned values, lower and upper are set
+    // and are merged here. That merge is returned again yielded
+    // lower and upper values for the outer iteration call
+    return merge(lower, upper);
 }
-
-
 
 
 

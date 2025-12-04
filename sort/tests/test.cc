@@ -80,3 +80,34 @@ TEST_CASE("The merge() functions merges two sorted std::arrays into one sorted s
         REQUIRE(merged == res);;
     }
 }
+
+TEST_CASE("The merge_sort() function return a sorted version of an std::array, the original array remains") {
+
+    SECTION("An unsorted array should be sorted") {
+        std::array<int, 5> arr = {5, -1, 12, 7, -8};
+        std::array<int, 5> res = {-8, -1, 5, 7, 12};
+
+        auto ret = merge_sort(arr);
+
+        REQUIRE(ret == res);
+    }
+
+    SECTION("A sorted array sould remain sorted") {
+        std::array<int, 4> arr = {-1, 5, 7, 12};
+        std::array<int, 4> res = {-1, 5, 7, 12};
+
+        auto ret = merge_sort(arr);
+
+        REQUIRE(ret == res);
+    }
+
+    SECTION("The original array should remain untouched") {
+        std::array<int, 4> arr = {5, -1, 12, 7};
+        std::array<int, 4> res = {5, -1, 12, 7};
+
+        merge_sort(arr);
+
+        REQUIRE(arr == res);
+
+    }
+}

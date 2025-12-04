@@ -2,8 +2,8 @@
 #include "sort.h"
 
 int main() {
-    std::array<int, 7> arr = {5, -1, 12, 15, 1, -12, 7};
-    swap(arr, 1, 2);
+    std::array<int, 5> arr = {-1, 12, 3, 17, 4};
+    arr = merge_sort(arr);
 
-    std::cout << arr[2] << std::endl;
+    std::cout << arr << std::endl;
 }
