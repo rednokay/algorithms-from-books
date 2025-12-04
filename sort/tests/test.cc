@@ -45,3 +45,39 @@ TEST_CASE("The selection_sort() function sorts an std::array in increasing order
         REQUIRE(arr == res);
     }
 }
+
+TEST_CASE("The merge() functions merges two sorted std::arrays into one sorted std::array") {
+
+    SECTION("Two sorted arrays of equal length should be merged into one") {
+        std::array<int, 3> one = {-2, 0, 10};
+        std::array<int, 3> two = {-6, 1, 2};
+
+        std::array<int, 6> res = {-6, -2, 0, 1, 2, 10};
+
+        auto merged = merge(one, two);
+
+        REQUIRE(merged == res);;
+    }
+
+    SECTION("Two sorted arrays where the latter is longer than the first should be merged") {
+        std::array<int, 3> one = {-2, 0, 10};
+        std::array<int, 6> two = {-6, 1, 2, 12, 27, 28};
+
+        std::array<int, 9> res = {-6, -2, 0, 1, 2, 10, 12, 27, 28};
+
+        auto merged = merge(one, two);
+
+        REQUIRE(merged == res);;
+    }
+
+    SECTION("Two sorted arrays where the former is longer than the first should be merged") {
+        std::array<int, 6> one = {-6, 1, 2, 12, 27, 28};
+        std::array<int, 3> two = {-2, 0, 10};
+
+        std::array<int, 9> res = {-6, -2, 0, 1, 2, 10, 12, 27, 28};
+
+        auto merged = merge(one, two);
+
+        REQUIRE(merged == res);;
+    }
+}

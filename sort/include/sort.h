@@ -39,8 +39,49 @@ void selection_sort(std::array<T, N>& arr) {
             swap(arr, j, min_idx);
         }
     }
-
 }
+
+template<typename T, std::size_t N_one, std::size_t N_two>
+std::array<T, N_one + N_two> merge(std::array<T, N_one>& one, std::array<T, N_two>& two) {
+    std::array<T, N_one + N_two> res{};
+
+    // TODO: 0 or 1?
+    std::size_t count_one = 0;
+    std::size_t count_two = 0;
+    std::size_t idx = 0;
+
+
+    while (count_one < N_one && count_two < N_two) {
+        if (one[count_one] < two[count_two]) {
+            res[idx] = one[count_one];
+            count_one++;
+        } else {
+            res[idx] = two[count_two];
+            count_two++;
+        }
+
+        idx++;
+    }
+
+    // Array two has elements remaining
+    if (count_one == N_one) {
+            std::copy(two.begin() + count_two, two.end(), res.begin() + idx);
+    }
+    if (count_two == N_two) {
+            std::copy(one.begin() + count_one, one.end(), res.begin() + idx);
+    }
+
+    return res;
+}
+
+template<typename T, std::size_t N>
+void merge_sort(std::array<T, N>& arr) {
+    (void)arr;
+}
+
+
+
+
 
 
 #endif
